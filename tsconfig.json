@@ -9,11 +9,19 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "noImplicitAny": false,
-    "noUnusedParameters": false,
-    "skipLibCheck": true,
-    "allowJs": true,
-    "noUnusedLocals": false,
-    "strictNullChecks": false
-  }
+    "module": "ESNext", // Explicitly set for ES modules
+    "moduleResolution": "Node", // Use Node.js resolution
+    "target": "ESNext", // Target modern JavaScript
+    "esModuleInterop": true, // Enable interop between CommonJS and ES Modules
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true, // Ensure consistent file casing
+    "allowJs": true, // Allow JavaScript files
+    "resolveJsonModule": true, // Allow JSON imports
+    "noImplicitAny": false, // Disable noImplicitAny (as per your config)
+    "noUnusedParameters": false, // Disable noUnusedParameters
+    "noUnusedLocals": false, // Disable noUnusedLocals
+    "strictNullChecks": false // Disable strict null checks
+  },
+  "include": ["**/*.ts", "**/*.tsx"], // Include all TypeScript files
+  "exclude": ["node_modules"]
 }
