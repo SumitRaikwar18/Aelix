@@ -52,7 +52,7 @@ const App = () => {
         appearance: {
           theme: 'light',
           accentColor: '#000000',
-          logo: '/lovable-uploads/83658abf-c342-42b2-9279-82b780dec951.png',
+          logo: '/images/83658abf-c342-42b2-9279-82b780dec951.png',
         },
         loginMethods: ['wallet'],
         embeddedWallets: {
