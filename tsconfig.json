@@ -5,8 +5,8 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true, // Fixes TS1259 for 'cors'
-    "skipLibCheck": true, // Bypasses 'undici-types', 'csstype' errors
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "allowJs": true,
     "resolveJsonModule": true,
     "noEmit": false,
@@ -17,6 +17,6 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["server.ts", "api/**/*.ts"],
-  "exclude": ["node_modules", "src"]
+  "include": ["api/**/*.ts", "src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
