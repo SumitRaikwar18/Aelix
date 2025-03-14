@@ -134,6 +134,9 @@ MONAD_RPC_URL=https://testnet-rpc.monad.xyz
 ### Step 4: Run the backend:
 npx ts-node monadAgent.ts
 
+### Step 5: Test Backend using curl command:
+$ curl -X POST http://localhost:3000/agent -H "Content-Type: application/json" -d '{"input": "help"}'
+
 ```
 ```bash
 
