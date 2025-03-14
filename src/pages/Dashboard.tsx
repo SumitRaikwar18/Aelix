@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Dashboard: React.FC = () => {
   const { authenticated, logout } = usePrivy();
   const navigate = useNavigate();
-
+ 
   React.useEffect(() => {
     if (!authenticated) {
       navigate('/');
