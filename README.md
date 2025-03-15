@@ -68,7 +68,7 @@ Check out the agent in action on our website:
   - ⚙️ Automated decision-making to simplify complex actions
 
 ## 📃 Documentation
-You can view the full documentation of the kit at [(Aelix Agent Documentation)](https://nikhils-organization-8.gitbook.io/aelix-or-ai-agent-on-monad/)
+You can view the full documentation of the kit at [Aelix Agent Documentation](https://nikhils-organization-8.gitbook.io/aelix)
 
 ## 📦 Installation
 
