@@ -3,7 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import Hero from "../components/Hero";
 import Features from "../components/Features";
 import Roadmap from "../components/Roadmap";
-import { Button } from "@/components/ui/button"; // Assuming Button component exists
+import { Button } from "@/components/ui/button";
 
 interface IndexProps {
   handleDisconnect: () => Promise<void>;
@@ -11,7 +11,6 @@ interface IndexProps {
 }
 
 const Index: React.FC<IndexProps> = ({ handleDisconnect, authenticated }) => {
-  // Add smooth scroll behavior for anchor links
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;

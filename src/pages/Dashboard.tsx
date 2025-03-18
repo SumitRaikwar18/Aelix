@@ -1,10 +1,9 @@
 import React from "react";
 import MainLayout from "../layouts/MainLayout";
 import ChatInterface from "../components/ChatInterface";
-import { usePrivy } from "@privy-io/react-auth";
 import { toast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button"; // Assuming Button component exists
 
 interface DashboardProps {
   handleDisconnect: () => Promise<void>;
@@ -12,7 +11,6 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ handleDisconnect, authenticated }) => {
-  const { logout } = usePrivy();
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -28,7 +26,7 @@ const Dashboard: React.FC<DashboardProps> = ({ handleDisconnect, authenticated }
 
   const onDisconnect = async () => {
     try {
-      await handleDisconnect(); // Calls the handleDisconnect from App.tsx
+      await handleDisconnect();
     } catch (error) {
       toast({
         title: "Disconnect Failed",
@@ -37,6 +35,10 @@ const Dashboard: React.FC<DashboardProps> = ({ handleDisconnect, authenticated }
       });
     }
   };
+
+  if (!authenticated) {
+    return null; // Prevent rendering until redirect
+  }
 
   return (
     <MainLayout>
@@ -47,11 +49,9 @@ const Dashboard: React.FC<DashboardProps> = ({ handleDisconnect, authenticated }
             <p className="text-muted-foreground">
               Your AI assistant for Monad blockchain operations
             </p>
-            {authenticated && (
-              <Button onClick={onDisconnect} variant="outline" className="mt-4">
-                Disconnect Wallet
-              </Button>
-            )}
+            <Button onClick={onDisconnect} variant="outline" className="mt-4">
+              Disconnect Wallet
+            </Button>
           </div>
           <div className="mx-auto w-full max-w-4xl">
             <div className="h-[70vh] max-h-[700px] rounded-2xl overflow-hidden shadow-lg bg-white/5 backdrop-blur-sm border border-white/10">

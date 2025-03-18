@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import { PrivyProvider, usePrivy } from "@privy-io/react-auth"; // Added usePrivy
+import { PrivyProvider, usePrivy } from "@privy-io/react-auth";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
@@ -24,24 +24,24 @@ const App = () => {
 
   const AppContent = () => {
     const navigate = useNavigate();
-    const { logout, authenticated } = usePrivy(); // Added usePrivy hook to access logout and authenticated state
+    const { logout, authenticated, user } = usePrivy();
 
     const handleLogin = (user: any) => {
-      navigate("/dashboard");
+      console.log("Login successful, user:", user); // Debug log
+      console.log("Authenticated:", authenticated); // Debug log
+      navigate("/dashboard"); // Redirect to dashboard immediately on login
     };
 
-    // Handle disconnect/logout
     const handleDisconnect = async () => {
       try {
-        await logout(); // Disconnect Privy wallet
-        // Notify server to clear wallet
+        await logout();
         await fetch("http://localhost:3000/disconnect", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({}),
         });
         console.log("Wallet disconnected on server");
-        navigate("/"); // Redirect to home page after disconnect
+        navigate("/");
       } catch (error) {
         console.error("Error during disconnect:", error);
       }
@@ -84,7 +84,10 @@ const App = () => {
             <Toaster />
             <Sonner />
             <Routes>
-              <Route path="/" element={<Index handleDisconnect={handleDisconnect} authenticated={authenticated} />} />
+              <Route
+                path="/"
+                element={<Index handleDisconnect={handleDisconnect} authenticated={authenticated} />}
+              />
               <Route
                 path="/dashboard"
                 element={<Dashboard handleDisconnect={handleDisconnect} authenticated={authenticated} />}
