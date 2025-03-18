@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'; // Add this
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import { PrivyProvider, usePrivy } from "@privy-io/react-auth";
+import { PrivyProvider } from '@privy-io/react-auth';
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
@@ -24,27 +24,8 @@ const App = () => {
 
   const AppContent = () => {
     const navigate = useNavigate();
-    const { logout, authenticated, user } = usePrivy();
-
     const handleLogin = (user: any) => {
-      console.log("Login successful, user:", user); // Debug log
-      console.log("Authenticated:", authenticated); // Debug log
-      navigate("/dashboard"); // Redirect to dashboard immediately on login
-    };
-
-    const handleDisconnect = async () => {
-      try {
-        await logout();
-        await fetch("http://localhost:3000/disconnect", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({}),
-        });
-        console.log("Wallet disconnected on server");
-        navigate("/");
-      } catch (error) {
-        console.error("Error during disconnect:", error);
-      }
+      navigate('/dashboard');
     };
 
     if (!privyAppId) {
@@ -68,13 +49,13 @@ const App = () => {
         appId={privyAppId}
         config={{
           appearance: {
-            theme: "light",
-            accentColor: "#000000",
-            logo: "/images/83658abf-c342-42b2-9279-82b780dec951.png",
+            theme: 'light',
+            accentColor: '#000000',
+            logo: '/images/83658abf-c342-42b2-9279-82b780dec951.png',
           },
-          loginMethods: ["wallet"],
+          loginMethods: ['wallet'],
           embeddedWallets: {
-            createOnLogin: "all-users",
+            createOnLogin: 'all-users',
           },
         }}
         onSuccess={handleLogin}
@@ -84,14 +65,8 @@ const App = () => {
             <Toaster />
             <Sonner />
             <Routes>
-              <Route
-                path="/"
-                element={<Index handleDisconnect={handleDisconnect} authenticated={authenticated} />}
-              />
-              <Route
-                path="/dashboard"
-                element={<Dashboard handleDisconnect={handleDisconnect} authenticated={authenticated} />}
-              />
+              <Route path="/" element={<Index />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/documentation" element={<Documentation />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
