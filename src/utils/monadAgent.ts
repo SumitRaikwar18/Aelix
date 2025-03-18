@@ -1,6 +1,6 @@
 // src/utils/monadAgent.ts
 export const sendMessageToAgent = async (input: string, privateKey?: string): Promise<{ response: string }> => {
-  const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT; // .env se URL fetch karo
+  const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT || "https://expert-space-rotary-phone-5jwgx7j46rpc7wvp-3000.app.github.dev/agent"// .env se URL fetch karo
 
   if (!API_ENDPOINT) {
     throw new Error('API endpoint not configured. Please set VITE_API_ENDPOINT in .env file.');

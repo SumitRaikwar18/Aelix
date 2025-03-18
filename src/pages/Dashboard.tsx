@@ -1,17 +1,23 @@
-import React from 'react';
-import MainLayout from '../layouts/MainLayout';
-import ChatInterface from '../components/ChatInterface';
-import { usePrivy } from '@privy-io/react-auth';
-import { toast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import MainLayout from "../layouts/MainLayout";
+import ChatInterface from "../components/ChatInterface";
+import { usePrivy } from "@privy-io/react-auth";
+import { toast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button"; // Assuming Button component exists
 
-const Dashboard: React.FC = () => {
-  const { authenticated, logout } = usePrivy();
+interface DashboardProps {
+  handleDisconnect: () => Promise<void>;
+  authenticated: boolean;
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ handleDisconnect, authenticated }) => {
+  const { logout } = usePrivy();
   const navigate = useNavigate();
- 
+
   React.useEffect(() => {
     if (!authenticated) {
-      navigate('/');
+      navigate("/");
       toast({
         title: "Authentication required",
         description: "Please connect your wallet to access the dashboard.",
@@ -19,6 +25,18 @@ const Dashboard: React.FC = () => {
       });
     }
   }, [authenticated, navigate]);
+
+  const onDisconnect = async () => {
+    try {
+      await handleDisconnect(); // Calls the handleDisconnect from App.tsx
+    } catch (error) {
+      toast({
+        title: "Disconnect Failed",
+        description: "Failed to disconnect wallet. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <MainLayout>
@@ -29,6 +47,11 @@ const Dashboard: React.FC = () => {
             <p className="text-muted-foreground">
               Your AI assistant for Monad blockchain operations
             </p>
+            {authenticated && (
+              <Button onClick={onDisconnect} variant="outline" className="mt-4">
+                Disconnect Wallet
+              </Button>
+            )}
           </div>
           <div className="mx-auto w-full max-w-4xl">
             <div className="h-[70vh] max-h-[700px] rounded-2xl overflow-hidden shadow-lg bg-white/5 backdrop-blur-sm border border-white/10">
